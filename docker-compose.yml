@@ -23,8 +23,15 @@ services:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
     ports:
-      - 8181:8080
+      - "8181:8080"
     depends_on:
       - keycloak-mysql
     volumes:
       - ./docker/keycloak/realms/:/opt/keycloak/data/import/
+
+  loki:
+    image: grafana/loki:main
+    ports:
+      - "3100:3100"
+    command: [ "-config.file=/etc/loki/local-config.yaml" ]
+
